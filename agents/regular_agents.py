@@ -1,22 +1,5 @@
-from abc import ABC, abstractmethod
 from utilities import generate_beliefs, check_epsilon, make_random_choice
-
-LEARNING_SPEED = 0.1 
-EPS = 0.1 # Epsilon value to ensure semi-stochastic decision making
-
-class TheoryOfMindAgent(ABC):
-
-    def __init__(self, beliefs = generate_beliefs(), intentions = generate_beliefs()) -> None:
-        self.beliefs = beliefs
-        self.intentions = intentions
-
-    @abstractmethod
-    def decide(self, **kwargs):
-        pass
-
-    @abstractmethod
-    def update(self, **kwargs):
-        pass
+from agents.agent import TheoryOfMindAgent, EPS, LEARNING_SPEED
 
 class ZeroOrderTheoryOfMindAgent(TheoryOfMindAgent):
     def __init__(self, beliefs = generate_beliefs(), intentions = generate_beliefs()) -> None:

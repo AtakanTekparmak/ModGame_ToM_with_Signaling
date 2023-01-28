@@ -1,11 +1,11 @@
 from typing import List
 
 from agents.regular_agents import (
-    TheoryOfMindAgent, 
     ZeroOrderTheoryOfMindAgent, 
     FirstOrderTheoryOfMindAgent, 
     SecondOrderTheoryOfMindAgent
 )
+from agents.agent import TheoryOfMindAgent
 from utilities import AgentsConfiguration
 from simulations.simulation import Simulation
         
