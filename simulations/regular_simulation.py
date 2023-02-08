@@ -6,7 +6,7 @@ from agents.regular_agents import (
     SecondOrderTheoryOfMindAgent
 )
 from agents.agent import TheoryOfMindAgent
-from utilities import AgentsConfiguration
+from utilities import AgentsConfiguration, RegularSimulationResults, get_mean, get_std
 from simulations.simulation import Simulation
         
 def create_agents(agent_config: AgentsConfiguration = AgentsConfiguration(10, 10, 10)) -> List[TheoryOfMindAgent]:
@@ -72,7 +72,11 @@ class RegularSimulation(Simulation):
         for agent, action in zip(self.agents, actions):
             agent.update(action)
 
-    def display_results(self) -> None:
+    def get_results(self) -> RegularSimulationResults:
+        '''
+        Calculates the statistics and returns 
+        them in a dict with individual results.
+        '''
         # Extract agent numbers
         number_0 = self.agent_config.zero_order_agent_number
         number_1 = self.agent_config.first_order_agent_number
@@ -83,12 +87,41 @@ class RegularSimulation(Simulation):
         first_order_scores = self.agent_scores[number_0:number_0+number_1]
         second_order_scores = self.agent_scores[number_0+number_1:]
 
+        return RegularSimulationResults(
+            zero_order_mean=get_mean(zero_order_scores),
+            zero_order_std=get_std(zero_order_scores), 
+            first_order_mean=get_mean(first_order_scores),
+            first_order_std=get_std(first_order_scores),
+            second_order_mean=get_mean(second_order_scores),
+            second_order_std=get_std(second_order_scores),
+        )
+
+
+
+    def display_results(
+        self, 
+        results: RegularSimulationResults, 
+        print_individual_scores: bool = False
+    ) -> None:
+
+        print("Printing statistics ...")
+        print(f"Zero Order Mean Score: {results.zero_order_mean:.3f}")
+        print(f"Zero Order Std: {results.zero_order_std:.3f}")
+        print(f"First Order Mean Score: {results.first_order_mean:.3f}")
+        print(f"First Order Std: {results.first_order_std:.3f}")
+        print(f"Second Order Mean Score: {results.second_order_mean:.3f}")
+        print(f"Second Order Std: {results.second_order_std:.3f}")
+
+        if not print_individual_scores:
+            return
+
+        print("----------------------------")
         print("Printing scores...")
-        print(f"Zero Order Agents ({number_0}): ")
-        print(zero_order_scores)
-        print(f"First Order Agents ({number_1}): ")
-        print(first_order_scores)
-        print(f"Second Order Agents ({number_2}): ")
-        print(second_order_scores)
+        print(f"Zero Order Agents: ")
+        print(results.zero_order_results)
+        print(f"First Order Agents: ")
+        print(results.first_order_results)
+        print(f"Second Order Agents: ")
+        print(results.second_order_results)
 
 

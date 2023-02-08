@@ -14,6 +14,20 @@ class AgentsConfiguration:
     first_order_agent_number: int
     second_order_agent_number: int
 
+@dataclass
+class RegularSimulationResults:
+    '''
+    Utility dataclass to 
+    store agent results.
+    '''
+    # Zero order results
+    zero_order_mean: float
+    zero_order_std: float 
+    first_order_mean: float
+    first_order_std: float 
+    second_order_mean: float
+    second_order_std: float 
+
 def generate_beliefs(number_of_choices: int = NUM_OF_CHOICES):
     ''' Generates a set of random beliefs. '''
     random_numpy_list = list(np.random.rand(number_of_choices,1))
@@ -23,6 +37,16 @@ def generate_beliefs(number_of_choices: int = NUM_OF_CHOICES):
         new_list.append(list(element))
 
     return [item for sublist in new_list for item in sublist]
+
+def generate_2d_beliefs(number_of_choices: int = NUM_OF_CHOICES):
+    ''' Generates a set of random beliefs for receiving agents. '''
+    random_numpy_list = list(np.random.rand(number_of_choices,number_of_choices))
+    new_list = []
+
+    for element in random_numpy_list:
+        new_list.append(list(element))
+
+    return new_list
 
 def check_epsilon(eps: float):
     ''' 
@@ -35,3 +59,11 @@ def check_epsilon(eps: float):
 def make_random_choice(number_of_choices: int = NUM_OF_CHOICES):
     ''' Makes a random choice given the number of choices. '''
     return np.random.randint(number_of_choices)
+
+def get_mean(array_like) -> float:
+    ''' Gets the mean of an array-like (list, np array, etc.)'''
+    return np.mean(array_like)
+
+def get_std(array_like) -> float:
+    ''' Gets the standard deviation of an array-like (list, np array, etc.)'''
+    return np.std(array_like)
