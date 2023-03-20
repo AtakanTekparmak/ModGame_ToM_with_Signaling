@@ -28,6 +28,7 @@ class SignalingAgent(TheoryOfMindAgent):
     '''
     def __init__(self, beliefs=generate_2d_beliefs(), intentions=generate_beliefs()) -> None:
         self.chosen_signal = 0
+        self.chosen_action = 0
         super().__init__(beliefs, intentions)
 
     @abstractmethod

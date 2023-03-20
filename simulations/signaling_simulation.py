@@ -51,7 +51,8 @@ class SignalingSimulation(Simulation):
 
     def simulate_round(self) -> None:
         # Have each agent decide on an action
-        actions = [agent_decide_and_save_data(self.agent_actions, agent, index) for index, agent in enumerate(self.agents)]
+        signals = [agent.signal() for agent in self.signaling_agents]
+        actions = [agent.decide() for agent in self.signaling_agents]
         actions_copy = actions
 
         for index, action in enumerate(actions):
