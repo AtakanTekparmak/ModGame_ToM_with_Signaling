@@ -2,6 +2,10 @@ from utilities import generate_beliefs, check_epsilon, make_random_choice
 from agents.agent import TheoryOfMindAgent, EPS, LEARNING_SPEED
 
 class ZeroOrderTheoryOfMindAgent(TheoryOfMindAgent):
+    '''
+    Zero-order Theory of Mind Agent. Has simple 1D beliefs
+    and makes decisions based on the highest belief.
+    '''
     def __init__(self, beliefs = generate_beliefs(), intentions = generate_beliefs()) -> None:
         super().__init__(beliefs, intentions)
 
@@ -31,6 +35,10 @@ class ZeroOrderTheoryOfMindAgent(TheoryOfMindAgent):
 
 
 class FirstOrderTheoryOfMindAgent(TheoryOfMindAgent):
+    '''
+    First-order Theory of Mind Agent. Acts greedily 
+    based on a model of the zero-order agent's decision-making process.
+    '''
     def __init__(self, lower_order_agent: TheoryOfMindAgent = ZeroOrderTheoryOfMindAgent()) -> None:
         self.zero_order_agent = lower_order_agent
 
@@ -46,6 +54,12 @@ class FirstOrderTheoryOfMindAgent(TheoryOfMindAgent):
         self.zero_order_agent.update(action)
 
 class SecondOrderTheoryOfMindAgent(TheoryOfMindAgent):
+    '''
+    Second-order Theory of Mind Agent. Acts greedily on
+    a model of the zero-order and first-order agents' 
+    decision-making processes. Has beliefs for which
+    order of agent is more likely to be present.
+    '''
     def __init__(
         self, 
         zero_order_agent: ZeroOrderTheoryOfMindAgent = ZeroOrderTheoryOfMindAgent(),
