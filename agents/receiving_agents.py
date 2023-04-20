@@ -2,6 +2,9 @@ from agents.agent import ReceivingAgent, EPS, LEARNING_SPEED
 from utilities import generate_beliefs, generate_2d_beliefs, check_epsilon, make_random_choice
 
 class ZeroOrderReceivingAgent(ReceivingAgent):
+    '''
+    Zero-order Receiving Agent. 
+    '''
     def __init__(
         self, 
         beliefs=generate_beliefs(), 

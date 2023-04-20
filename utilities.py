@@ -1,5 +1,6 @@
 import numpy as np
 from dataclasses import dataclass
+from typing import Optional
 
 NUM_OF_CHOICES = 23
 
@@ -15,6 +16,20 @@ class AgentsConfiguration:
     second_order_agent_number: int
 
 @dataclass
+class SignalingAgentsConfiguration:
+    '''
+    Utility dataclass to store
+    the number of each level
+    of Theory of Mind agent.
+    '''
+    zero_order_sig_agent_number: int
+    zero_order_agent_number: int
+    first_order_sig_agent_number: int
+    first_order_agent_number: int
+    second_order_sig_agent_number: int
+    second_order_agent_number: int
+
+@dataclass
 class RegularSimulationResults:
     '''
     Utility dataclass to 
@@ -27,6 +42,28 @@ class RegularSimulationResults:
     first_order_std: float 
     second_order_mean: float
     second_order_std: float 
+    extras_mean: Optional[float] = 0.0
+    extras_std: Optional[float] = 0.0
+
+@dataclass
+class SignalingSimulationResults:
+    '''
+    Utility dataclass to
+    store signaling agent results.
+    '''
+    zero_order_sig_mean: float
+    zero_order_sig_std: float
+    zero_order_mean: float
+    zero_order_std: float
+    first_order_sig_mean: float
+    first_order_sig_std: float
+    first_order_mean: float
+    first_order_std: float
+    second_order_sig_mean: float
+    second_order_sig_std: float
+    second_order_mean: float
+    second_order_std: float
+
 
 def generate_beliefs(number_of_choices: int = NUM_OF_CHOICES):
     ''' Generates a set of random beliefs. '''

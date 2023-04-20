@@ -72,6 +72,14 @@ class RegularSimulation(Simulation):
         for agent, action in zip(self.agents, actions):
             agent.update(action)
 
+    def add_agents(self, agents: List[TheoryOfMindAgent]) -> None:
+        '''
+        Adds a list of agents to the simulation.
+        '''
+        self.agents += agents
+        self.agent_actions += [[] for _ in agents]
+        self.agent_scores += [0 for _ in agents]
+
     def get_results(self) -> RegularSimulationResults:
         '''
         Calculates the statistics and returns 
@@ -80,7 +88,6 @@ class RegularSimulation(Simulation):
         # Extract agent numbers
         number_0 = self.agent_config.zero_order_agent_number
         number_1 = self.agent_config.first_order_agent_number
-        number_2 = self.agent_config.second_order_agent_number
 
         # Slice scores per ToM level
         zero_order_scores = self.agent_scores[:number_0]

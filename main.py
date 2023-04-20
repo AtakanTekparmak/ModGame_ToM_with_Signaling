@@ -1,6 +1,14 @@
 from simulations.regular_simulation import RegularSimulation
-from utilities import AgentsConfiguration, RegularSimulationResults, get_mean
+from simulations.signaling_simulation import SignalingSimulation
+from utilities import (
+    AgentsConfiguration, 
+    SignalingAgentsConfiguration,
+    RegularSimulationResults, 
+    SignalingSimulationResults,
+    get_mean
+)
 from typing import List
+from agents.signaling_agents import ZeroOrderSignalingAgent
 
 def aggregate_results(
         results: List[RegularSimulationResults],
@@ -20,9 +28,34 @@ def aggregate_results(
         second_order_std=get_mean([result.second_order_std for result in results]) / epochs,
     )
 
-def main():
+def aggregate_signaling_results(
+        results: List[SignalingSimulationResults],
+        epochs: int
+    ) -> SignalingSimulationResults:
+    '''
+    Returns the aggregated mean of a list
+    of SignalingSimulationResults (all statistics
+    provided are per round).
+    '''
+    return SignalingSimulationResults (
+        zero_order_sig_mean=get_mean([result.zero_order_sig_mean for result in results]) / epochs,
+        zero_order_sig_std=get_mean([result.zero_order_sig_std for result in results]) / epochs,
+        zero_order_mean=get_mean([result.zero_order_mean for result in results]) / epochs,
+        zero_order_std=get_mean([result.zero_order_std for result in results]) / epochs,
+        first_order_sig_mean=get_mean([result.first_order_sig_mean for result in results]) / epochs,
+        first_order_sig_std=get_mean([result.first_order_sig_std for result in results]) / epochs,
+        first_order_mean=get_mean([result.first_order_mean for result in results]) / epochs,
+        first_order_std=get_mean([result.first_order_std for result in results]) / epochs,
+        second_order_sig_mean=get_mean([result.second_order_sig_mean for result in results]) / epochs,
+        second_order_sig_std=get_mean([result.second_order_sig_std for result in results]) / epochs,
+        second_order_mean=get_mean([result.second_order_mean for result in results]) / epochs,
+        second_order_std=get_mean([result.second_order_std for result in results]) / epochs,
+    )
+
+def run_regular_simulation():
+    ''' Runs a regular simulation 10 times and aggregates the results.'''
     # Define population configuration
-    agent_config: AgentsConfiguration = AgentsConfiguration(120, 90, 90)
+    agent_config: AgentsConfiguration = AgentsConfiguration(100, 100, 100)
     results: List[RegularSimulationResults] = []
     epochs: int = 1000
 
@@ -35,6 +68,26 @@ def main():
     # Display aggregate results
     regular_simulation.display_results(results=aggregate_results(results, epochs))
 
+def run_signaling_simulation():
+    ''' Runs a signaling simulation 10 times and aggregates the results.'''
+    # Define population configuration
+    agent_config:  SignalingAgentsConfiguration = SignalingAgentsConfiguration(50, 50, 50, 50, 50, 50)
+    results: List[SignalingSimulationResults] = []
+    epochs: int = 1000
+
+    # Run it 10 times to aggregate results
+    for _ in range(10):
+        signaling_simulation = SignalingSimulation(agent_config=agent_config)
+        signaling_simulation.run(number_of_epochs=epochs)
+        results.append(signaling_simulation.get_results())
+
+    # Display aggregate results
+    signaling_simulation.display_results(results=aggregate_signaling_results(results, epochs))
+
+def main():
+    run_regular_simulation()
+    print('-----------------')
+    run_signaling_simulation()
 
 if __name__ == '__main__':
     main()
