@@ -91,10 +91,10 @@ class SignalingSimulation(Simulation):
         '''
         # Extract agent numbers
         number_0 = self.agent_config.zero_order_sig_agent_number
-        number_1 = self.agent_config.zero_order_agent_number
-        number_2 = self.agent_config.first_order_sig_agent_number
-        number_3 = self.agent_config.first_order_agent_number
-        number_4 = self.agent_config.second_order_sig_agent_number
+        number_1 = number_0 + self.agent_config.zero_order_agent_number
+        number_2 = number_1 + self.agent_config.first_order_sig_agent_number
+        number_3 = number_2 + self.agent_config.first_order_agent_number
+        number_4 = number_3 + self.agent_config.second_order_sig_agent_number
 
         # Slice scores per ToM level
         zero_order_sig_scores = self.signaling_agent_scores[:number_0]

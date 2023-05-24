@@ -6,3 +6,7 @@ poetry.lock
 __pycache__
 *.pyc
 
+# Self notes and thesis stuff
+a.tex
+a.txt
+a.md
