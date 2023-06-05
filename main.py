@@ -85,7 +85,7 @@ def run_signaling_simulation():
     signaling_simulation.display_results(results=aggregate_signaling_results(results, epochs))
 
 def main():
-    run_regular_simulation(100, 100, 1200)
+    run_regular_simulation(100, 100, 100)
     print('-----------------')
     run_signaling_simulation()
 
