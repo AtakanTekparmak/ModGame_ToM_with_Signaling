@@ -52,10 +52,10 @@ def aggregate_signaling_results(
         second_order_std=get_mean([result.second_order_std for result in results]) / epochs,
     )
 
-def run_regular_simulation():
+def run_regular_simulation(zero_order_number: int = 100, first_order_number: int = 100, second_order_number: int = 100):
     ''' Runs a regular simulation 10 times and aggregates the results.'''
     # Define population configuration
-    agent_config: AgentsConfiguration = AgentsConfiguration(100, 100, 100)
+    agent_config: AgentsConfiguration = AgentsConfiguration(zero_order_number, first_order_number, second_order_number)
     results: List[RegularSimulationResults] = []
     epochs: int = 1000
 
@@ -85,7 +85,7 @@ def run_signaling_simulation():
     signaling_simulation.display_results(results=aggregate_signaling_results(results, epochs))
 
 def main():
-    run_regular_simulation()
+    run_regular_simulation(100, 100, 1200)
     print('-----------------')
     run_signaling_simulation()
 

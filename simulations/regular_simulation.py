@@ -111,7 +111,7 @@ class RegularSimulation(Simulation):
         print_individual_scores: bool = False
     ) -> None:
 
-        print("Printing statistics ...")
+        print(f"Printing statistics for population configuration: {self.agent_config}")
         print(f"Zero Order Mean Score: {results.zero_order_mean:.3f}")
         print(f"Zero Order Std: {results.zero_order_std:.3f}")
         print(f"First Order Mean Score: {results.first_order_mean:.3f}")

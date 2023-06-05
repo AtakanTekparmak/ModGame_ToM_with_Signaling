@@ -15,6 +15,9 @@ class AgentsConfiguration:
     first_order_agent_number: int
     second_order_agent_number: int
 
+    def __str__(self) -> str:
+        return f"0-order: {self.zero_order_agent_number}, 1-order: {self.first_order_agent_number}, 2-order: {self.second_order_agent_number}"
+
 @dataclass
 class SignalingAgentsConfiguration:
     '''
