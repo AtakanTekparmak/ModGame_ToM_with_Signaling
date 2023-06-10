@@ -40,16 +40,16 @@ def aggregate_signaling_results(
     return SignalingSimulationResults (
         zero_order_sig_mean=get_mean([result.zero_order_sig_mean for result in results]) / epochs,
         zero_order_sig_std=get_mean([result.zero_order_sig_std for result in results]) / epochs,
-        zero_order_mean=get_mean([result.zero_order_mean for result in results]) / epochs,
-        zero_order_std=get_mean([result.zero_order_std for result in results]) / epochs,
         first_order_sig_mean=get_mean([result.first_order_sig_mean for result in results]) / epochs,
         first_order_sig_std=get_mean([result.first_order_sig_std for result in results]) / epochs,
-        first_order_mean=get_mean([result.first_order_mean for result in results]) / epochs,
-        first_order_std=get_mean([result.first_order_std for result in results]) / epochs,
         second_order_sig_mean=get_mean([result.second_order_sig_mean for result in results]) / epochs,
         second_order_sig_std=get_mean([result.second_order_sig_std for result in results]) / epochs,
-        second_order_mean=get_mean([result.second_order_mean for result in results]) / epochs,
-        second_order_std=get_mean([result.second_order_std for result in results]) / epochs,
+        zero_order_rec_mean=get_mean([result.zero_order_rec_mean for result in results]) / epochs,
+        zero_order_rec_std=get_mean([result.zero_order_rec_std for result in results]) / epochs,
+        first_order_rec_mean=get_mean([result.first_order_rec_mean for result in results]) / epochs,
+        first_order_rec_std=get_mean([result.first_order_rec_std for result in results]) / epochs,
+        second_order_rec_mean=get_mean([result.second_order_rec_mean for result in results]) / epochs,
+        second_order_rec_std=get_mean([result.second_order_rec_std for result in results]) / epochs,
     )
 
 def run_regular_simulation(zero_order_number: int = 100, first_order_number: int = 100, second_order_number: int = 100):
@@ -76,16 +76,17 @@ def run_signaling_simulation():
     epochs: int = 1000
 
     # Run it 10 times to aggregate results
-    for _ in range(10):
+    for i in range(10):
         signaling_simulation = SignalingSimulation(agent_config=agent_config)
         signaling_simulation.run(number_of_epochs=epochs)
         results.append(signaling_simulation.get_results())
+        print(f'Finished simulation {i}')
 
     # Display aggregate results
     signaling_simulation.display_results(results=aggregate_signaling_results(results, epochs))
 
 def main():
-    run_regular_simulation(100, 100, 100)
+    run_regular_simulation(120, 120, 60)
     print('-----------------')
     run_signaling_simulation()
 

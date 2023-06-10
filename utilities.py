@@ -26,11 +26,11 @@ class SignalingAgentsConfiguration:
     of Theory of Mind agent.
     '''
     zero_order_sig_agent_number: int
-    zero_order_agent_number: int
+    zero_order_rec_agent_number: int
     first_order_sig_agent_number: int
-    first_order_agent_number: int
+    first_order_rec_agent_number: int
     second_order_sig_agent_number: int
-    second_order_agent_number: int
+    second_order_rec_agent_number: int
 
 @dataclass
 class RegularSimulationResults:
@@ -56,16 +56,16 @@ class SignalingSimulationResults:
     '''
     zero_order_sig_mean: float
     zero_order_sig_std: float
-    zero_order_mean: float
-    zero_order_std: float
     first_order_sig_mean: float
     first_order_sig_std: float
-    first_order_mean: float
-    first_order_std: float
     second_order_sig_mean: float
     second_order_sig_std: float
-    second_order_mean: float
-    second_order_std: float
+    zero_order_rec_mean: float
+    zero_order_rec_std: float
+    first_order_rec_mean: float
+    first_order_rec_std: float
+    second_order_rec_mean: float
+    second_order_rec_std: float
 
 
 def generate_beliefs(number_of_choices: int = NUM_OF_CHOICES):
