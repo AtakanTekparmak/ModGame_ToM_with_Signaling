@@ -83,7 +83,11 @@ class FirstOrderSignalingAgent(SignalingAgent):
         zero_order_decision = self.zero_order_agent.signal()
 
         self.chosen_signal = zero_order_decision
-        return zero_order_decision
+
+        if check_epsilon(EPS):
+            self.chosen_signal = make_random_choice()
+
+        return self.chosen_signal
 
     def decide(self, **kwargs) -> int:
         # Make random choice through epsilon probability
@@ -165,7 +169,7 @@ class SecondOrderSignalingAgent(SignalingAgent):
             else:
                 self.chosen_action = self.first_order_agent.decide()
 
-        return self.chosen_action
+        return (self.chosen_action + 1) % 23
 
     def update(self, action: int):
         # Get each lower level agent's decision and the respective higher order decision
